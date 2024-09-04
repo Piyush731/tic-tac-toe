@@ -17,3 +17,4 @@ python main.py
 4. A track of player scores is maintained
 5. Click anywhere on the result screen to play again
 
+## Developed by Piyush Kashyap
