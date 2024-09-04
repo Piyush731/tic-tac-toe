@@ -1,2 +1,2 @@
 numpy
-tkinter
+pip install --upgrade pip
