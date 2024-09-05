@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tic Tac Toe</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <!-- added recorder js for recording audio from front-end -->
+    <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+
+    <!-- Add script to load the recording related functions -->
+    <script src="{{ url_for('static', filename='recording.js') }}"></script>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            border: 0px
+        }
+
+        td {
+            border: 1px solid black;
+            width: 105px;
+            height: 105px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        td>a {
+            font-size: 18px;
+        }
+
+        .butt {
+            border: 1px outset blue;
+            background-color: lightBlue;
+            height: 105px;
+            width: 105px;
+            cursor: pointer;
+        }
+
+        .butt:hover {
+            background-color: blue;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+
+        <h1 style="align-content: center;">Tic Tac Toe</h1>
+        <hr style="color: blue;">
+        <hr style="color: olivedrab;">
+
+        {% if draw %}
+        <div>
+            <h1 style="color: red;"> Game Drawn</h1>
+        </div>
+        {% endif %}
+        {% if winnerFound %}
+        <div>
+            <h1 style="color: green;"> WINNER is {{winner}}</h1>
+        </div>
+        {% endif %}
+        <table style="border:double;">
+            {% for i in range(3) %}
+            <tr>
+                {% for j in range(3) %}
+                <td>
+                    {% if game[i][j] %}
+                    {{ game[i][j] }}
+                    {% else %}
+                    <a href="{{ url_for('play', row=i, col=j) }}"><button class="butt">Turn {{turn}}</button> </a>
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="listening-feedback-container {{ 'active' if listen else '' }}">
+            <h5>Listening...</h5>
+            <!-- load icon from static svg location -->
+            <img class="icon" src="{{ url_for('static', filename='icons/microphone-solid.svg') }}" alt="loading"
+                width="50" height="50">
+        </div>
+        <div class="my-3"><a href="{{url_for('reset')}}" class="btn btn-danger">Reset Game</a></div>
+        <hr>
+        <div>
+            <p id="transcription"></p>
+        </div>
+
+
+    </center>
+    <!-- script to listen for the audio -->
+    <script>
+        {% if listen %}
+        startRecording();
+        // start a timer of 10 seconds to stop listening
+        setTimeout(() => {
+            stopRecording();
+            // update the listening status
+            document.querySelector('.listening-feedback-container').classList.remove('active');
+        }, 5000);
+        {% else %}
+
+        {% endif %}
+    </script>
+</body>
+
+</html>

@@ -1,20 +1,29 @@
-# Tic-Tac-Toe
+## Setup
 
-This repository contains python based interactive Tic-Tac-Toe game.
+1. Install requirements:
 
-## Running Tic-Tac-Toe:
-
-```
-git clone https://github.com/Piyush731/tic-tac-toe.git
-cd Tic-Tac-Toe
-python main.py
+```bash
+pip install -r requirements.txt
 ```
 
-## Controls
-1. Player X starts the game
-2. Click on each grid to place symbol
-3. The result of the game is displayed at the end of the game
-4. A track of player scores is maintained
-5. Click anywhere on the result screen to play again
+2. Run the script:
 
-## Developed by Piyush Kashyap
+```bash
+python app.py
+```
+
+**Note:** The script will run on http://0.0.0.0:9100/ by default.
+This enables you to access the script from any device on your local network.
+
+## Usage
+
+1. Open the link in your browser.
+
+2. Start speaking the commands (It'll wait for 5 seconds before submitting the command.) If you don't speak, it'll retry.
+
+3. Wait for it to get processed and show the changes
+
+4. Complete the box or win/loose to get the final result
+
+
+**Note:** The script will use network call to google speech to text API. Make sure you have a good internet connection. (I have used the free version)
